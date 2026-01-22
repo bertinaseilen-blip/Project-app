@@ -3,7 +3,7 @@ import { middlewareTask } from "../modules/middlewareTask.mjs";
 
 const router = express.Router();
 
-router.put("/task", taskCompletionMiddleware, (req, res) => {
+router.put("/task", middlewareTask, (req, res) => {
     res.send("Task updated");
 });
 
