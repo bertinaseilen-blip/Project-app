@@ -1,28 +1,21 @@
 import express from "express";
 import middlewareRoute from "./routes/middlewareRoute.mjs";
+import apiRoutes from "./routes/tasksAPI.mjs";
 
-const PORT = 8080;
 const app = express();
+const PORT = 8080;
+
 
 app.use(express.json());
-app.use(middlewareRoute);
 
-app.get("/test", async (req, res) => {
-    await fetch("http://localhost:8080/task", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            taskName: "Task 1",
-            completed: true
-        })
-    });
+app.use("/api", apiRoutes);
 
-    res.send("Test triggered");
+app.get("/", (req, res) => {
+  res.send("Reminder API running");
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
+
 
