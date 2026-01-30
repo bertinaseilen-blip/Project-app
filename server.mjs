@@ -1,6 +1,7 @@
 import express from "express";
 import middlewareRoute from "./routes/middlewareRoute.mjs";
 import apiRoutes from "./routes/tasksAPI.mjs";
+import usersAPI from "./routes/userAPI.mjs";
 
 const app = express();
 const PORT = 8080;
@@ -19,3 +20,6 @@ app.listen(PORT, () => {
 });
 
 
+
+
+app.use("/api", usersAPI);
