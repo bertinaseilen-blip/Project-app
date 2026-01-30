@@ -1,0 +1,87 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: reminder app api
+meta:
+  id: wrk_ee4b7338c1ae4b529c3286548ed6e1b3
+  created: 1769264446640
+  modified: 1769264446640
+  description: ""
+collection:
+  - url: http://localhost:8080/user
+    name: create user
+    meta:
+      id: req_2b22c9e4b0ed4c37a1969e19af4e0ddc
+      created: 1769796945132
+      modified: 1769798918428
+      isPrivate: false
+      description: ""
+      sortKey: -1769796945133
+    method: POST
+    body:
+      mimeType: application/json
+      text: |+
+        {
+        	"username": "Ole",
+        	"consentToToS": true
+        }
+
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.3.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/user/1d2992f08463cb
+    name: delete user
+    meta:
+      id: req_bc4ccd1b43e046a7bf344b4ccece057e
+      created: 1769798843968
+      modified: 1769799004515
+      isPrivate: false
+      description: ""
+      sortKey: -1769798843968
+    method: DELETE
+    body:
+      mimeType: application/x-www-form-urlencoded
+      params:
+        - name: ole
+          value: ""
+          description: ""
+          disabled: false
+    headers:
+      - name: Content-Type
+        value: application/x-www-form-urlencoded
+      - name: User-Agent
+        value: insomnia/12.3.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_27db5eb52e23cb0948aa63db1fb59d7f8c483f2f
+    created: 1769264446651
+    modified: 1769264446651
+environments:
+  name: Base Environment
+  meta:
+    id: env_27db5eb52e23cb0948aa63db1fb59d7f8c483f2f
+    created: 1769264446646
+    modified: 1769264446646
+    isPrivate: false

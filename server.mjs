@@ -10,6 +10,7 @@ const PORT = 8080;
 app.use(express.json());
 
 app.use("/api", apiRoutes);
+app.use("/user", usersAPI);
 
 app.get("/", (req, res) => {
   res.send("Reminder API running");
@@ -22,4 +23,4 @@ app.listen(PORT, () => {
 
 
 
-app.use("/api", usersAPI);
+

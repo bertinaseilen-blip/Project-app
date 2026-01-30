@@ -1,47 +1,30 @@
 import express from "express";
-import { generateID } from "../dataObjects/user.mjs";
+import { createUser, deleteUser, getUsers } from "../dataObjects/user.mjs";
 
 const userRouter = express.Router();
 userRouter.use(express.json());
 
-const Users = {};
-
 userRouter.post("/", (req, res) => {
-  const { username, consentToToS } = req.body;
-
-  if (!username) {
-    return res.status(400).json({ error: "Username is required" });
+  try {
+    const { username, consentToToS } = req.body;
+    const user = createUser(username, consentToToS);
+    res.status(201).json(user);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
-
-  if (consentToToS !== true) {
-    return res.status(400).json({ error: "Consent to Terms of Service is required" });
-  }
-
-  const id = generateID();
-  const newUser = {
-    id,
-    username,
-    consentToToS,
-  };
-
-  Users[id] = newUser;
-
-  res.status(201).json(newUser);
 });
 
 userRouter.delete("/:id", (req, res) => {
-  const { id } = req.params;
-
-  if (!Users[id]) {
+  const success = deleteUser(req.params.id);
+  if (!success) {
     return res.status(404).json({ error: "User not found" });
   }
-
-  delete Users[id];
   res.json({ message: "User deleted and consent revoked" });
 });
 
 userRouter.get("/", (req, res) => {
-  res.json(Object.values(Users));
+  res.json(getUsers());
 });
 
 export default userRouter;
+
