@@ -19,9 +19,18 @@ export function createUser(username, consentToToS) {
     id,
     username,
     consentToToS,
-    createdAt: new Date().toISOString()
   };
 
   Users[id] = user;
   return user;
+}
+
+export function deleteUser(id) {
+  if (!Users[id]) return false;
+  delete Users[id];
+  return true;
+}
+
+export function getUsers() {
+  return Object.values(Users);
 }
