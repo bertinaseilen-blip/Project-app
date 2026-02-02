@@ -16,9 +16,55 @@ Without middleware, task completion logic would need to be written inside each r
 ## Testing
 The middleware was tested by sending PUT requests to the /task endpoint with completed: true in the request body. The completion message was logged to the server console, confirming correct behavior.
 
-# API task
+<br>
 
-The API (tasksAPI.mjs in routes folder) is designed to manage tasks/reminders created by the client.
-Tasks can be created, retrieved, updated, and deleted using a REST’ish API.
-The API is scaffolded using Express and tested using Insomnia.
-An Insomnia collection is included in the repository/folder insomnia.
+# API for tasks
+## Overview
+
+This API is used by the Reminder Application client to create and manage tasks/reminders.
+The API follows a REST’ish design and communicates using JSON over HTTP.
+
+The API is scaffolded using Express and is not fully implemented.
+Testing is performed using Insomnia/Bruno, and the test setup is included in the repository. (APItest/middlewereTest)
+
+## Task Resource
+
+A task represents a reminder.
+
+Fields:
+- id: string
+- title: string
+- completed: boolean
+
+## Endpoints
+
+### Get all tasks
+GET /api/tasks
+
+Returns a list of all tasks.
+
+### Get task by ID
+GET /api/tasks/:id
+
+Returns a single task.
+
+### Create task
+POST /api/tasks
+
+Body:
+{
+  "title": "Buy milk"
+}
+
+### Update task
+PUT /api/tasks/:id
+
+Body:
+{
+  "completed": true
+}
+
+### Delete task
+DELETE /api/tasks/:id
+
+Deletes a task.
