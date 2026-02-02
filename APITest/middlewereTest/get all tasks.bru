@@ -1,0 +1,16 @@
+meta {
+  name: get all tasks
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8080/api/tasks
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

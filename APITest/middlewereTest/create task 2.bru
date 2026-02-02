@@ -1,0 +1,24 @@
+meta {
+  name: create task 2
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/api/tasks
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "taskName": "Test task 2",
+    "completed": false
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
