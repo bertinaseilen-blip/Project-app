@@ -1,4 +1,4 @@
-import { createUserManager } from "./modules/userComponents.mjs";
+import { createUserManager } from "./components/userComponent.mjs";
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = document.getElementById("app");
