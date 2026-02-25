@@ -4,7 +4,7 @@ function createUserManager() {
   const element = document.createElement("div");
 
   element.innerHTML = `
-    <h2>User Management</h2>
+    <h2>Create user</h2>
 
     <input type="text" placeholder="Enter username" />
 
@@ -71,4 +71,3 @@ function createUserManager() {
 }
 
 export { createUserManager };
-
