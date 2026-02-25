@@ -5,12 +5,24 @@ function createUserManager() {
 
   element.innerHTML = `
     <h2>User Management</h2>
+
     <input type="text" placeholder="Enter username" />
+
+    <div>
+      <label>
+        <input type="checkbox" id="tosCheck" />
+        I agree to the 
+        <a href="/tos.html" target="_blank">Terms of Service</a> and 
+        <a href="/privacy.html" target="_blank">Privacy Policy</a>
+      </label>
+    </div>
+
     <button>Create User</button>
     <ul></ul>
   `;
 
-  const input = element.querySelector("input");
+  const input = element.querySelector("input[type='text']");
+  const checkbox = element.querySelector("#tosCheck");
   const createBtn = element.querySelector("button");
   const list = element.querySelector("ul");
 
@@ -36,10 +48,20 @@ function createUserManager() {
 
   createBtn.addEventListener("click", async () => {
     const username = input.value.trim();
-    if (!username) return;
+
+    if (!username) {
+      alert("Username required");
+      return;
+    }
+
+    if (!checkbox.checked) {
+      alert("You must agree to the Terms of Service.");
+      return;
+    }
 
     await createUser(username);
     input.value = "";
+    checkbox.checked = false;
     loadUsers();
   });
 
