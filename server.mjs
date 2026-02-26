@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import middlewareRoute from "./routes/middlewareRoute.mjs";
+
 import apiRoutes from "./routes/tasksAPI.mjs";
 import usersAPI from "./routes/userAPI.mjs";
 
