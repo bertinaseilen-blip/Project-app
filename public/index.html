@@ -1,16 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Reminder App</title>
-  <link rel="stylesheet" href="./app.css" />
-</head>
 <body>
 
   <h1>Reminder Application</h1>
 
-  <div id="app"></div>
+  <div id="userManager">
+    <h2>User Management</h2>
+
+    <input type="text" id="usernameInput" placeholder="Enter username" />
+
+    <div>
+      <label>
+        <input type="checkbox" id="tosCheck" />
+        I agree to the 
+        <a href="/tos.html" target="_blank">Terms of Service</a> and 
+        <a href="/privacy.html" target="_blank">Privacy Policy</a>
+      </label>
+    </div>
+
+    <button id="createUserBtn">Create User</button>
+    <ul id="userList"></ul>
+  </div>
+
   <script type="module" src="./app.mjs"></script>
-  
 </body>
-</html>
