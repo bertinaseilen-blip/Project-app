@@ -1,24 +1,48 @@
 <body>
 
-  <h1>Reminder Application</h1>
+  <header class="topbar">
+    <h1>Reminder Application</h1>
+    <button id="openUserModal">Log in / Create user</button>
+    <button id="viewUsersBtn">Users</button>
+  </header>
 
-  <div id="userManager">
-    <h2>User Management</h2>
-
-    <input type="text" id="usernameInput" placeholder="Enter username" />
-
-    <div>
-      <label>
-        <input type="checkbox" id="tosCheck" />
-        I agree to the 
-        <a href="/tos.html" target="_blank">Terms of Service</a> and 
-        <a href="/privacy.html" target="_blank">Privacy Policy</a>
-      </label>
+  <section class="reminder-section">
+    <div class="reminder-header">
+      <h2>Reminders</h2>
+      <button id="addReminderBtn">+</button>
     </div>
 
-    <button id="createUserBtn">Create User</button>
-    <ul id="userList"></ul>
-  </div>
+    <ul id="reminderList"></ul>
+  </section>
+
+  <!-- USER MODAL -->
+  <div id="userModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Create User</h2>
+      <p id="userError" class="error-message"></p>
+      <input type="text" id="usernameInput" placeholder="Enter username" />
+
+      <label>
+        <input type="checkbox" id="tosCheck" />
+        I agree to 
+        <a href="/tos.html" target="_blank">Terms of Service</a>
+        and
+        <a href="/privacy.html" target="_blank">Privacy Policy</a>
+      </label>
+
+      <button id="createUserBtn">Create</button>
+      <button id="closeUserModal">Cancel</button>
+    </div>
+    </div>
+    
+    <div id="usersModal" class="modal hidden">
+      <div class="modal-content">
+        <h2>All Users</h2>
+        <ul id="usersList"></ul>
+        <button id="closeUsersModal">Close</button>
+      </div>
+      </div>
 
   <script type="module" src="./app.mjs"></script>
+  <link rel="stylesheet" href="./app.css" />
 </body>
