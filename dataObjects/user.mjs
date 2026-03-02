@@ -1,14 +1,10 @@
-const Users = {};
+import * as storage from "../storageProviders/storageProvider.mjs";
 
 export function generateID() {
-  let id;
-  do {
-    id = (Math.random() * Number.MAX_SAFE_INTEGER).toString(16);
-  } while (Users[id]);
-  return id;
+  return (Math.random() * Number.MAX_SAFE_INTEGER).toString(16);
 }
 
-export function createUser(username, consentToToS) {
+export async function createUser(username, consentToToS) {
 
   if (!username || username.trim().length < 3) {
     throw new Error("Username must be at least 3 characters long");
@@ -18,35 +14,15 @@ export function createUser(username, consentToToS) {
     throw new Error("Consent to Terms of Service is required");
   }
 
-  const exists = Object.values(Users).some(
-    user => user.username === username
-  );
-
-  if (exists) {
-    throw new Error("Username already exists");
-  }
-
   const id = generateID();
 
-  const user = {
-    id,
-    username: username.trim(),
-    consentToToS
-  };
-
-  Users[id] = user;
-
-  return user;
+  return await storage.createUser(id, username.trim(), consentToToS);
 }
 
-export function deleteUser(id) {
-  if (!Users[id]) return false;
-
-  delete Users[id]; // removes data + consent
-
-  return true;
+export async function getUsers() {
+  return await storage.getUsers();
 }
 
-export function getUsers() {
-  return Object.values(Users);
+export async function deleteUser(id) {
+  return await storage.deleteUser(id);
 }
