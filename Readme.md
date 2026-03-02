@@ -1,7 +1,6 @@
 # Reminder app
 Web service URL: https://reminder-app-demo.onrender.com/
-I have no yet connected the user database(postgreSQL) 
-
+it is possible to create and view users. Reminders/tasks have not been added yet.
 ## Description 
 A full-stack reminder application that allows users to create notes/reminders, assign them to categories and set due dates. Users can change and delete reminders and assign to new categories. (and if possible and time allows, share reminders with other users.)
 
