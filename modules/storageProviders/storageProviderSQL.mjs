@@ -8,6 +8,13 @@ const pool = new Pool({
   }
 });
 
+await pool.query(`
+  CREATE TABLE IF NOT EXISTS users (
+    id TEXT PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    consent BOOLEAN NOT NULL
+  );
+`);
 // -------------------------
 
 export async function createUser(id, username, consent) {
