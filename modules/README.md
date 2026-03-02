@@ -15,3 +15,4 @@ Without middleware, task completion logic would need to be written inside each r
 
 ## Testing
 The middleware was tested by sending PUT requests to the /task endpoint with completed: true in the request body. The completion message was logged to the server console, confirming correct behavior.
+

@@ -1,5 +1,5 @@
 import express from "express";
-import { middlewareTask } from "../modules/middlewareTask.mjs";
+import { middlewareTask } from "../public/modules/middlewareTask.mjs";
 
 const router = express.Router();
 
