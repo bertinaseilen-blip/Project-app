@@ -1,4 +1,4 @@
-import * as storage from "../storageProviders/storageProvider.mjs";
+import * as storage from "../modules/storageProviders/storageProvider.mjs";
 
 export function generateID() {
   return (Math.random() * Number.MAX_SAFE_INTEGER).toString(16);
