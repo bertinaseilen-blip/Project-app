@@ -1,48 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reminder Application</title>
+ 
+</head>
 <body>
 
-  <header class="topbar">
-    <h1>Reminder Application</h1>
-    <button id="openUserModal">Log in / Create user</button>
-    <button id="viewUsersBtn">Users</button>
+  <!-- Top Bar / Header -->
+  <header>
+    <h1 data-i18n="title">Reminder Application</h1>
+    <button id="openUserModal" data-i18n="loginBtn">Login</button>
+    <button id="viewUsersBtn" data-i18n="users">Users</button>
   </header>
 
+  <!-- Reminders Section -->
   <section class="reminder-section">
-    <div class="reminder-header">
-      <h2>Reminders</h2>
+    <header>
+      <h2 data-i18n="reminders">Reminders</h2>
       <button id="addReminderBtn">+</button>
-    </div>
-
+    </header>
     <ul id="reminderList"></ul>
   </section>
 
-  <!-- USER MODAL -->
+  <!-- User Modal -->
   <div id="userModal" class="modal hidden">
-    <div class="modal-content">
-      <h2>Create User</h2>
+    <section>
       <p id="userError" class="error-message"></p>
-      <input type="text" id="usernameInput" placeholder="Enter username" />
 
-      <label>
-        <input type="checkbox" id="tosCheck" />
-        I agree to 
-        <a href="/tos.html" target="_blank">Terms of Service</a>
-        and
-        <a href="/privacy.html" target="_blank">Privacy Policy</a>
-      </label>
+      <!-- LOGIN VIEW -->
+      <div id="loginView">
+        <h2 data-i18n="login">Login</h2>
+        <input type="text" id="usernameInput" placeholder="Enter username">
+        <input type="password" id="passwordInput" placeholder="Password">
+        <button id="loginBtn" data-i18n="signin">Sign in</button>
+        <p>
+        <span data-i18n="noAccount">Don't have an account?</span>
+        <a href="#" id="showSignup" data-i18n="signup">Sign up</a>
+      </p>
 
-      <button id="createUserBtn">Create</button>
-      <button id="closeUserModal">Cancel</button>
-    </div>
-    </div>
-    
-    <div id="usersModal" class="modal hidden">
-      <div class="modal-content">
-        <h2>All Users</h2>
-        <ul id="usersList"></ul>
-        <button id="closeUsersModal">Close</button>
-      </div>
       </div>
 
-  <script type="module" src="./app.mjs"></script>
-  <link rel="stylesheet" href="./app.css" />
+      <!-- SIGNUP VIEW -->
+      <div id="signupView" class="hidden">
+         <h2 data-i18n="createAccount">Create Account</h2>
+        <input type="text" id="signupUsername" placeholder="Username">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <label>
+          <input type="checkbox" id="tosCheck">
+
+          <span data-i18n="agree">I agree to</span>
+
+          <a href="/tos.html" target="_blank" data-i18n="tos">
+            Terms of Service
+          </a>
+
+          <span data-i18n="and">and</span>
+
+          <a href="/privacy.html" target="_blank" data-i18n="privacy">
+            Privacy Policy
+          </a>
+        </label>
+        <button id="createUserBtn" data-i18n="createUser">Create User</button>
+
+          <p>
+            <span data-i18n="haveAccount">Already have an account?</span>
+            <a href="#" id="showLogin" data-i18n="backLogin">
+              Back to login
+            </a>
+          </p>
+      </div>
+
+      <button id="closeUserModal" data-i18n="cancel">Cancel</button>
+    </section>
+  </div>
+
+  <!-- Reminder Modal -->
+  <div id="reminderModal" class="modal hidden">
+    <section>
+    <h2 data-i18n="createReminder">Create Reminder</h2>
+
+    <input id="reminderTitle" placeholder="Title">
+
+    <textarea id="reminderDescription" placeholder="Description"></textarea>
+
+      <button id="saveReminderBtn" data-i18n="save">Save</button>
+      <button id="closeReminderModal" data-i18n="cancel">Cancel</button>
+    </section>
+  </div>
+
+  <!-- Users Modal -->
+  <div id="usersModal" class="modal hidden">
+    <section>
+      <h2 data-i18n="users">Users</h2>
+      <ul id="usersList"></ul>
+      <button id="closeUsersModal" data-i18n="close">Close</button>
+    </section>
+  </div>
+
+  <script type="module" src="./app.mjs"></script> 
+  <link rel="stylesheet" href="./app.css">
 </body>
+</html> 

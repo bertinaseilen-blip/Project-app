@@ -1,0 +1,38 @@
+{
+  "title": "Påminnelse App",
+  "login": "Logg in",
+  "users": "Brukere",
+  "reminders": "Påminelser",
+  "loginBtn": "Logg inn",
+
+  "signin": "Logg inn",
+  "signup": "Registrer",
+  "createUser": "Lag bruker",
+  "createAccount": "Opprett konto",
+
+  "noAccount": "Har du ikke en konto?",
+  "haveAccount": "Har du allerede en konto?",
+  "backLogin": "Tilbake til innlogging",
+
+  "agree": "Jeg godtar",
+  "and": "og",
+  "tos": "Bruksvilkår",
+  "privacy": "Personvernerklæring",
+
+  "createReminder": "Lag Reminder",
+
+  "save": "Lagre",
+  "cancel": "Avbryt",
+  "close": "Lukk",
+
+  "logout": "Logget ut",
+  "loginRequired": "Vennligst logg inn først",
+  "invalidCredentials": "Feil brukernavn eller passord",
+  "loginSuccess": "Innlogging vellykket!",
+  "loginError": "Ugyldig brukernavn eller passord",
+  
+  "userExists": "Brukeren finnes allerede",
+  "userRequired": "Brukernavn og passord kreves",
+  "errorUsers": "Feil ved lasting av brukere",
+  "userCreated": "Bruker opprettet! Du kan nå logge inn."
+}

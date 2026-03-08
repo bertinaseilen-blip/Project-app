@@ -1,0 +1,38 @@
+{
+  "title": "Reminder Application",
+  "login": "Login",
+  "users": "Users",
+  "reminders": "Reminders",
+  "loginBtn": "Login",
+
+  "signin": "Sign in",
+  "signup": "Sign up",
+  "createUser": "Create User",
+  "createAccount": "Create Account",
+
+  "noAccount": "Don't have an account?",
+  "haveAccount": "Already have an account?",
+  "backLogin": "Back to login",
+
+  "agree": "I agree to",
+  "and": "and",
+  "tos": "Terms of Service",
+  "privacy": "Privacy Policy",
+
+  "createReminder": "Create Reminder",
+
+  "save": "Save",
+  "cancel": "Cancel",
+  "close": "Close",
+
+  "logout": "Logged out",
+  "loginRequired": "Please login first",
+  "invalidCredentials": "Invalid credentials",
+  "loginSuccess": "Login successful!",
+  "loginError": "Invalid username or password",
+
+  "userExists": "User already exists",
+  "userRequired": "Username and password required",
+  "errorUsers": "Error loading users",
+  "userCreated": "User created! You can now log in."
+}
