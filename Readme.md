@@ -1,6 +1,11 @@
 # Reminder app
 Web service URL: https://reminder-app-demo.onrender.com/
-it is possible to create and view users. Reminders/tasks have not been added yet.
+
+It is possibe now to create a user, login and create a reminder. You have to be logged in to create a reminder and to see them. 
+i18n: added translation for engish and norwegian. the buttons and errors/alerts changes to the correct language based on the browsers language. 
+
+Added PWA support with service worker and caching logic. Tested locally but service worker registration does not show in the browser; further testing needed.
+
 ## Description 
 A full-stack reminder application that allows users to create notes/reminders, assign them to categories and set due dates. Users can change and delete reminders and assign to new categories. (and if possible and time allows, share reminders with other users.)
 
