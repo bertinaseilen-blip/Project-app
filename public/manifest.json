@@ -1,4 +1,5 @@
 {
+  "id":"/",
   "name": "Reminder Application",
   "short_name": "Reminders",
   "description": "Simple reminder application",
