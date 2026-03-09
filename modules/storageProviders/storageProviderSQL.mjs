@@ -119,6 +119,26 @@ export async function completeReminder(id, userId) {
   return result.rows[0];
 }
 
+export async function deleteReminder(id, userId) {
+  const result = await pool.query(
+    `DELETE FROM reminders WHERE id = $1 AND user_id = $2 RETURNING *`,
+    [id, userId]
+  );
+
+  return result.rows[0];
+}
+
+export async function updateReminder(id, userId, title, description, category) {
+  const result = await pool.query(
+    `UPDATE reminders
+     SET title = $3, description = $4, category = $5
+     WHERE id = $1 AND user_id = $2
+     RETURNING *`,
+    [id, userId, title, description, category]
+  );
+
+  return result.rows[0];
+}
 // -------------------------
 // EXPORT POOL
 // -------------------------

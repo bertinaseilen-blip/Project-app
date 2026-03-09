@@ -80,9 +80,16 @@ header button {
   flex-direction: column;
   gap: 10px;
 
+  min-height: 120px;
+
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-
+.reminder-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  margin-top: auto;
+}
 #reminderList input[type="checkbox"] {
   width: 20px;
   height: 20px;
@@ -95,7 +102,32 @@ label {
   display: block;
   margin-bottom: 10px;
 }
+.edit-btn {
+  border: none;
+  background: #ddd;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.delete-btn {
+  border: none;
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.edit-btn:hover {
+  background: #bbb;
+}
 
+.delete-btn:hover {
+  background: #c0392b;
+}
 
 /* ===== Modal Overlay ===== */
 .modal {

@@ -4,7 +4,9 @@ import authenticate from "../modules/auth.mjs";
 import {
   createReminder,
   getRemindersForUser,
-  completeReminder
+  completeReminder,
+  deleteReminder,
+  updateReminder
 } from "../dataObjects/reminder.mjs";
 
 const reminderRouter = express.Router();
@@ -28,7 +30,8 @@ reminderRouter.get("/", authenticate, async (req, res) => {
 
       grouped[category].push(reminder);
     }
-    console.log("Reminders fetched:", reminders);
+    //console.log("Reminders fetched:", reminders);
+    
     res.json(reminders);
   } catch (err) {
     console.error("GET reminders error:", err);
@@ -71,4 +74,32 @@ reminderRouter.put("/:id/complete", authenticate, async (req, res) => {
   }
 });
 
+reminderRouter.delete("/:id", authenticate, async (req, res) => {
+  try {
+    await deleteReminder(req.params.id, req.userId);
+    res.json({ message: "Reminder deleted" });
+  } catch (err) {
+    console.error("DELETE reminder error:", err);
+    res.status(500).json({ error: "Failed to delete reminder" });
+  }
+});
+
+reminderRouter.put("/:id", authenticate, async (req, res) => {
+  try {
+    const { title, description, category } = req.body;
+
+    const updated = await updateReminder(
+      req.params.id,
+      req.userId,
+      title,
+      description,
+      category
+    );
+
+    res.json(updated);
+  } catch (err) {
+    console.error("UPDATE reminder error:", err);
+    res.status(500).json({ error: "Failed to update reminder" });
+  }
+});
 export default reminderRouter;

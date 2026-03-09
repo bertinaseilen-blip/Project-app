@@ -42,7 +42,7 @@ function translatePage(){
 document.addEventListener("DOMContentLoaded", async () => {
 
   await loadLanguage();
-  
+
   /* =========================
      ELEMENTS
   ========================== */
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const closeUsersModalBtn = document.getElementById("closeUsersModal");
   const usersList = document.getElementById("usersList");
 
-
+  let editingReminderId = null;
   /* =========================
      LOGIN BUTTON STATE
   ========================== */
@@ -343,14 +343,15 @@ if (closeUsersModalBtn) {
       return;
     }
 
-    reminderModal.classList.remove("hidden");
+  editingReminderId = null;
 
-  });
+  reminderTitle.value = "";
+  reminderDescription.value = "";
+  categoryInput.value = "";
 
-  closeReminderModal.addEventListener("click", () => {
-    reminderModal.classList.add("hidden");
-  });
+  reminderModal.classList.remove("hidden");
 
+});
 
   /* =========================
      CREATE REMINDER
@@ -364,22 +365,26 @@ if (closeUsersModalBtn) {
     const description = reminderDescription.value;
     const category = categoryInput.value;
 
-    const response = await fetch("/api/reminders", {
+    const url = editingReminderId
+      ? `/api/reminders/${editingReminderId}`
+      : "/api/reminders";
 
-      method: "POST",
+    const method = editingReminderId ? "PUT" : "POST";
 
+    await fetch(url, {
+      method: method,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       },
-
       body: JSON.stringify({
         title,
         description,
         category
       })
-
     });
+
+    editingReminderId = null;
 
     reminderModal.classList.add("hidden");
 
@@ -389,8 +394,7 @@ if (closeUsersModalBtn) {
 
     loadReminders();
 
-  });
-
+});
 
   /* =========================
      LOAD REMINDERS
@@ -437,6 +441,15 @@ if (closeUsersModalBtn) {
 
       const li = document.createElement("li");
 
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "✏";
+      editBtn.classList.add("edit-btn");
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "x";
+      deleteBtn.classList.add("delete-btn");
+
+
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
 
@@ -448,9 +461,36 @@ if (closeUsersModalBtn) {
             "Authorization": `Bearer ${token}`
           }
 
+        });  
+
+        loadReminders();
+
+      });
+      
+      deleteBtn.addEventListener("click", async () => {
+
+        if (!confirm("Delete reminder?")) return;
+
+        await fetch(`/api/reminders/${r.id}`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
         });
 
         loadReminders();
+
+      });
+
+      editBtn.addEventListener("click", () => {
+
+        editingReminderId = r.id;
+
+        reminderTitle.value = r.title;
+        reminderDescription.value = r.description;
+        categoryInput.value = r.category;
+
+        reminderModal.classList.remove("hidden");
 
       });
 
@@ -462,10 +502,17 @@ if (closeUsersModalBtn) {
       const desc = document.createElement("div");
       desc.textContent = r.description;
 
+      const buttonContainer = document.createElement("div");
+      buttonContainer.classList.add("reminder-actions");
+
+      buttonContainer.appendChild(editBtn);
+      buttonContainer.appendChild(deleteBtn);
+
       text.append(title, desc)
 
       li.appendChild(checkbox);
       li.appendChild(text);
+      li.appendChild(buttonContainer);
 
       reminderList.appendChild(li);
 
