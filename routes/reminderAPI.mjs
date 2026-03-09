@@ -12,10 +12,22 @@ const reminderRouter = express.Router();
 reminderRouter.use(express.json());
 
 reminderRouter.get("/", authenticate, async (req, res) => {
-  console.log("Incoming GET /api/reminders for user:", req.userId);
-
+  
   try {
     const reminders = await getRemindersForUser(req.userId);
+
+
+    const grouped = {};
+
+    for (const reminder of reminders) {
+      const category = reminder.category || "";
+
+      if (!grouped[category]) {
+        grouped[category] = [];
+      }
+
+      grouped[category].push(reminder);
+    }
     console.log("Reminders fetched:", reminders);
     res.json(reminders);
   } catch (err) {
@@ -27,7 +39,7 @@ reminderRouter.get("/", authenticate, async (req, res) => {
 // CREATE REMINDER
 reminderRouter.post("/", authenticate, async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, category } = req.body;
 
     if (!title || title.trim() === "") {
       return res.status(400).json({ error: "Title required" });
@@ -35,9 +47,10 @@ reminderRouter.post("/", authenticate, async (req, res) => {
 
     const reminder = await createReminder(
       randomUUID(),
-      req.userId, // always the authenticated user
+      req.userId,
       title,
-      description || ""
+      description || "",
+      category || ""
     );
 
     res.status(201).json(reminder);

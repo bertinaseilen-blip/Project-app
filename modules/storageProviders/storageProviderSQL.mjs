@@ -1,4 +1,3 @@
-// storageProviderSQL.mjs
 import "dotenv/config";
 import pkg from "pg";
 import crypto from "crypto";
@@ -46,10 +45,17 @@ export async function initDB() {
         user_id TEXT NOT NULL REFERENCES users(id),
         title TEXT NOT NULL,
         description TEXT,
-        completed BOOLEAN DEFAULT FALSE
+        completed BOOLEAN DEFAULT FALSE,
+        category TEXT
       );
     `);
   });
+
+  await pool.query(`
+  ALTER TABLE reminders
+  ADD COLUMN IF NOT EXISTS category TEXT;
+  UPDATE reminders SET category = ' ' WHERE category IS NULL;
+`);
 
   console.log("Database initialized!");
 }
@@ -89,10 +95,10 @@ export async function deleteUser(id) {
 // -------------------------
 // REMINDERS FUNCTIONS
 // -------------------------
-export async function createReminder(id, userId, title, description) {
+export async function createReminder(id, userId, title, description, category) {
   const result = await pool.query(
-    `INSERT INTO reminders (id, user_id, title, description) VALUES ($1, $2, $3, $4) RETURNING *`,
-    [id, userId, title, description]
+    `INSERT INTO reminders (id, user_id, title, description, category) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+    [id, userId, title, description, category]
   );
   return result.rows[0];
 }

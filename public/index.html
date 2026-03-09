@@ -88,6 +88,17 @@
     <input id="reminderTitle" placeholder="Title">
 
     <textarea id="reminderDescription" placeholder="Description"></textarea>
+    
+    <label for="categoryList">Choose a category:</label>
+    <input list="category" id="categoryList" name="categoryList" />
+
+    <datalist id="category">
+      <option value=""></option>
+      <option value="Work"></option>
+      <option value="School"></option>
+      <option value="Assignments"></option>
+      <option value="Other"></option>
+    </datalist>
 
       <button id="saveReminderBtn" data-i18n="save">Save</button>
       <button id="closeReminderModal" data-i18n="cancel">Cancel</button>

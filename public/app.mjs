@@ -42,6 +42,7 @@ function translatePage(){
 document.addEventListener("DOMContentLoaded", async () => {
 
   await loadLanguage();
+  
   /* =========================
      ELEMENTS
   ========================== */
@@ -79,6 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const reminderTitle = document.getElementById("reminderTitle");
   const reminderDescription = document.getElementById("reminderDescription");
+  const categoryInput = document.getElementById("categoryList");
   const saveReminderBtn = document.getElementById("saveReminderBtn");
 
   const usersModal = document.getElementById("usersModal");
@@ -360,6 +362,7 @@ if (closeUsersModalBtn) {
 
     const title = reminderTitle.value;
     const description = reminderDescription.value;
+    const category = categoryInput.value;
 
     const response = await fetch("/api/reminders", {
 
@@ -372,7 +375,8 @@ if (closeUsersModalBtn) {
 
       body: JSON.stringify({
         title,
-        description
+        description,
+        category
       })
 
     });
@@ -381,6 +385,7 @@ if (closeUsersModalBtn) {
 
     reminderTitle.value = "";
     reminderDescription.value = "";
+    categoryInput.value = "";
 
     loadReminders();
 
@@ -394,15 +399,12 @@ if (closeUsersModalBtn) {
   async function loadReminders() {
 
     const token = localStorage.getItem("token");
-
     if (!token) return;
 
     const response = await fetch("/api/reminders", {
-
       headers: {
         "Authorization": `Bearer ${token}`
       }
-
     });
 
     if (!response.ok) {
@@ -411,10 +413,27 @@ if (closeUsersModalBtn) {
     }
 
     const reminders = await response.json();
+    
+    const grouped = reminders.reduce((acc, r) => {
+    const category = r.category || "Other";
 
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+
+      acc[category].push(r);
+
+      return acc;
+    }, {});
     reminderList.innerHTML = "";
 
-    reminders.forEach(r => {
+     Object.keys(grouped).sort().forEach(category => {
+
+      const header = document.createElement("h3");
+      header.textContent = category;
+      reminderList.appendChild(header);
+      
+      grouped[category].forEach(r => {
 
       const li = document.createElement("li");
 
@@ -424,9 +443,7 @@ if (closeUsersModalBtn) {
       checkbox.addEventListener("change", async () => {
 
         await fetch(`/api/reminders/${r.id}/complete`, {
-
           method: "PUT",
-
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -440,13 +457,12 @@ if (closeUsersModalBtn) {
       const text = document.createElement("span");
 
       const title = document.createElement("strong")
-      title.textContent = r.title
+      title.textContent = r.title;
 
-      const br = document.createElement("br")
+      const desc = document.createElement("div");
+      desc.textContent = r.description;
 
-      const desc = document.createTextNode(r.description)
-
-      text.append(title, br, desc)
+      text.append(title, desc)
 
       li.appendChild(checkbox);
       li.appendChild(text);
@@ -455,8 +471,8 @@ if (closeUsersModalBtn) {
 
     });
 
+  });
   }
-
 
   /* =========================
      LOAD ON START
