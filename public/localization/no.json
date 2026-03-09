@@ -20,10 +20,17 @@
   "privacy": "Personvernerklæring",
 
   "createReminder": "Lag Reminder",
-
+  
   "save": "Lagre",
   "cancel": "Avbryt",
   "close": "Lukk",
+
+  "work": "Jobb",
+  "school":"Skole",
+  "assignment":"Innevering",
+  "toDo": "To Do",
+  "important": "Viktig!",
+  "other": "Annet",
 
   "logout": "Logget ut",
   "loginRequired": "Vennligst logg inn først",

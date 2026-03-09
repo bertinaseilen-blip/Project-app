@@ -384,6 +384,8 @@ if (closeUsersModalBtn) {
       })
     });
 
+    
+
     editingReminderId = null;
 
     reminderModal.classList.add("hidden");
@@ -393,6 +395,17 @@ if (closeUsersModalBtn) {
     categoryInput.value = "";
 
     loadReminders();
+
+});
+closeReminderModal.addEventListener("click", () => {
+
+  editingReminderId = null;
+
+  reminderModal.classList.add("hidden");
+
+  reminderTitle.value = "";
+  reminderDescription.value = "";
+  categoryInput.value = "";
 
 });
 

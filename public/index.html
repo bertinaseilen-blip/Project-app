@@ -89,15 +89,16 @@
 
     <textarea id="reminderDescription" placeholder="Description"></textarea>
     
-    <label for="categoryList">Choose a category:</label>
+    <label for="categoryList" data-i18n="chooseCategory">Choose a category:</label>
     <input list="category" id="categoryList" name="categoryList" />
 
     <datalist id="category">
-      <option value=""></option>
-      <option value="Work"></option>
-      <option value="School"></option>
-      <option value="Assignments"></option>
-      <option value="Other"></option>
+      <option data-i18n="work"></option>
+      <option data-i18n="school"></option>
+      <option data-i18n="assignment"></option>
+      <option data-i18n="toDo"></option>
+      <option data-i18n="important"></option>
+      <option data-i18n="other"></option>
     </datalist>
 
       <button id="saveReminderBtn" data-i18n="save">Save</button>

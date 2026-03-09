@@ -25,6 +25,15 @@
   "cancel": "Cancel",
   "close": "Close",
 
+  "work": "Work",
+  "school":"school",
+  "assignment":"Assignments",
+  "toDo": "To Do",
+  "important": "Important",
+  "other": "Other",
+
+  
+
   "logout": "Logged out",
   "loginRequired": "Please login first",
   "invalidCredentials": "Invalid credentials",
