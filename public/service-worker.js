@@ -1,7 +1,5 @@
-// public/service-worker.js
-
 const CACHE_NAME = "reminder-app-v1";
-const ASSETS_TO_CACHE = [
+const filesToCashe = [
  "/",
   "/index.html",
   "/app.css",
@@ -17,7 +15,7 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log("Caching files");
-      return cache.addAll(ASSETS_TO_CACHE);
+      return cache.addAll(filesToCashe);
     }),
   );
 });

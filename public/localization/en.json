@@ -1,8 +1,8 @@
 {
-  "title": "Reminder Application",
+  "title": "Reminder",
   "login": "Login",
   "users": "Users",
-  "reminders": "Reminders",
+  "reminders": "My Reminders:",
   "loginBtn": "Login",
 
   "signin": "Sign in",

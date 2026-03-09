@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #c5b0c5;
+  background-color: #d6ccd6;
 }
 
 /* ===== Title ===== */
@@ -14,18 +14,16 @@ header h1 {
 
 /* ===== Top Bar ===== */
 header {
-  background: black;
-  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 8px 20px;
+  border-bottom: 2px solid #000000;
 }
 
 header button {
   background: none;
   border: none;
-  color: white;
   font-size: 14px;
   cursor: pointer;
 }
@@ -36,12 +34,11 @@ header button {
 }
 
 .reminder-section > header {
-  background-color: #563c5c;
-  color: #d8bfd8;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px;
+  border-bottom: none;
 }
 
 .reminder-section > header h2 {
@@ -59,22 +56,34 @@ header button {
 /* ===== Reminder List ===== */
 #reminderList {
   list-style: none;
-  padding: 0;
+  padding: 20px;
   margin: 0;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 #reminderList li {
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+  padding: 20px;
+  font-size: 18px;
+
   display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 25px 10px;
-  font-size: 28px;
-  border-bottom: 2px solid black;
+  flex-direction: column;
+  gap: 10px;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 #reminderList input[type="checkbox"] {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
+}
+#reminderList li:hover {
+  transform: translateY(-3px);
+  transition: 0.2s;
 }
 
 /* ===== Modal Overlay ===== */
@@ -97,8 +106,7 @@ header button {
 
 /* ===== Modal Box ===== */
 .modal > section {
-  background: #000000;
-  color: white;
+  background: #ffffff;
   padding: 40px;
   width: 450px;
   border-radius: 40px;
