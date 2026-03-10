@@ -446,9 +446,16 @@ closeReminderModal.addEventListener("click", () => {
 
      Object.keys(grouped).sort().forEach(category => {
 
+      const headerLi = document.createElement("li");
+      headerLi.classList.add("category-header");
+
       const header = document.createElement("h3");
       header.textContent = category;
-      reminderList.appendChild(header);
+
+      header.textContent = category;
+
+      headerLi.appendChild(header);
+      reminderList.appendChild(headerLi);
       
       grouped[category].forEach(r => {
 
@@ -457,15 +464,28 @@ closeReminderModal.addEventListener("click", () => {
       const editBtn = document.createElement("button");
       editBtn.textContent = "✏";
       editBtn.classList.add("edit-btn");
+      editBtn.setAttribute("aria-label", `Edit reminder ${r.title}`);
+      editBtn.type = "button";
 
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "x";
       deleteBtn.classList.add("delete-btn");
-
+      deleteBtn.setAttribute("aria-label", `Delete reminder ${r.title}`);
+      deleteBtn.type = "button";
 
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
+      checkbox.id = `reminder-${r.id}`;
+      
 
+      const label = document.createElement("label");
+      label.htmlFor = checkbox.id;
+      checkbox.checked = r.completed;
+      label.textContent = `Mark "${r.title}" as completed`;
+      label.classList.add("visually-hidden");
+
+      li.appendChild(checkbox);
+      li.appendChild(label);
       checkbox.addEventListener("change", async () => {
 
         await fetch(`/api/reminders/${r.id}/complete`, {
@@ -523,7 +543,6 @@ closeReminderModal.addEventListener("click", () => {
 
       text.append(title, desc)
 
-      li.appendChild(checkbox);
       li.appendChild(text);
       li.appendChild(buttonContainer);
 
