@@ -201,7 +201,10 @@ label {
   width: 20px;
   height: 20px;
 }
-
+.reminder-date {
+  font-size: 14px;
+  color: #666;
+}
 /* ===== Buttons ===== */
 #createUserBtn {
   background-color: #3fa058;
@@ -253,4 +256,18 @@ label {
   color: white;
   border: none;
   padding: 5px 10px;
+}
+#saveReminderBtn{
+  background-color: #6fd188;
+  border: none;
+  padding: 10px 40px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#closeReminderModal{
+  background-color: #c6c6c6;
+  border: none;
+  padding: 10px 40px;
+  font-size: 16px;
+  cursor: pointer;
 }

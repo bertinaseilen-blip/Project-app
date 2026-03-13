@@ -46,7 +46,8 @@ export async function initDB() {
         title TEXT NOT NULL,
         description TEXT,
         completed BOOLEAN DEFAULT FALSE,
-        category TEXT
+        category TEXT,
+        date DATE
       );
     `);
   });
@@ -56,6 +57,10 @@ export async function initDB() {
   ADD COLUMN IF NOT EXISTS category TEXT;
   UPDATE reminders SET category = ' ' WHERE category IS NULL;
 `);
+  await pool.query(`
+    ALTER TABLE reminders
+    ADD COLUMN IF NOT EXISTS date DATE;
+  `);
 
   console.log("Database initialized!");
 }
@@ -95,17 +100,18 @@ export async function deleteUser(id) {
 // -------------------------
 // REMINDERS FUNCTIONS
 // -------------------------
-export async function createReminder(id, userId, title, description, category) {
+export async function createReminder(id, userId, title, description, category, date) {
   const result = await pool.query(
-    `INSERT INTO reminders (id, user_id, title, description, category) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-    [id, userId, title, description, category]
+    `INSERT INTO reminders (id, user_id, title, description, category, date) 
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+    [id, userId, title, description, category, date]
   );
   return result.rows[0];
 }
 
 export async function getRemindersForUser(userId) {
   const result = await pool.query(
-    `SELECT * FROM reminders WHERE user_id = $1 ORDER BY completed, id`,
+    `SELECT * FROM reminders WHERE user_id = $1 ORDER BY completed, date NULLS LAST`,
     [userId]
   );
   return result.rows;
@@ -128,13 +134,13 @@ export async function deleteReminder(id, userId) {
   return result.rows[0];
 }
 
-export async function updateReminder(id, userId, title, description, category) {
+export async function updateReminder(id, userId, title, description, category, date) {
   const result = await pool.query(
     `UPDATE reminders
-     SET title = $3, description = $4, category = $5
+     SET title = $3, description = $4, category = $5, date = $6
      WHERE id = $1 AND user_id = $2
      RETURNING *`,
-    [id, userId, title, description, category]
+    [id, userId, title, description, category, date]
   );
 
   return result.rows[0];

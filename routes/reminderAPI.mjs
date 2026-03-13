@@ -42,7 +42,7 @@ reminderRouter.get("/", authenticate, async (req, res) => {
 // CREATE REMINDER
 reminderRouter.post("/", authenticate, async (req, res) => {
   try {
-    const { title, description, category } = req.body;
+    const { title, description, category, date } = req.body;
 
     if (!title || title.trim() === "") {
       return res.status(400).json({ error: "Title required" });
@@ -53,7 +53,8 @@ reminderRouter.post("/", authenticate, async (req, res) => {
       req.userId,
       title,
       description || "",
-      category || ""
+      category || "",
+      date
     );
 
     res.status(201).json(reminder);
@@ -86,14 +87,15 @@ reminderRouter.delete("/:id", authenticate, async (req, res) => {
 
 reminderRouter.put("/:id", authenticate, async (req, res) => {
   try {
-    const { title, description, category } = req.body;
+    const { title, description, category, date } = req.body;
 
     const updated = await updateReminder(
       req.params.id,
       req.userId,
       title,
       description,
-      category
+      category,
+      date
     );
 
     res.json(updated);

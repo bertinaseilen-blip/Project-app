@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const reminderDescription = document.getElementById("reminderDescription");
   const categoryInput = document.getElementById("categoryList");
   const saveReminderBtn = document.getElementById("saveReminderBtn");
+  const setDate = document.getElementById("setDate");
 
   const usersModal = document.getElementById("usersModal");
   const closeUsersModalBtn = document.getElementById("closeUsersModal");
@@ -348,6 +349,8 @@ if (closeUsersModalBtn) {
   reminderTitle.value = "";
   reminderDescription.value = "";
   categoryInput.value = "";
+  setDate.value ="";
+ 
 
   reminderModal.classList.remove("hidden");
 
@@ -364,6 +367,7 @@ if (closeUsersModalBtn) {
     const title = reminderTitle.value;
     const description = reminderDescription.value;
     const category = categoryInput.value;
+    const date = setDate.value;
 
     const url = editingReminderId
       ? `/api/reminders/${editingReminderId}`
@@ -380,7 +384,8 @@ if (closeUsersModalBtn) {
       body: JSON.stringify({
         title,
         description,
-        category
+        category,
+        date
       })
     });
 
@@ -393,6 +398,7 @@ if (closeUsersModalBtn) {
     reminderTitle.value = "";
     reminderDescription.value = "";
     categoryInput.value = "";
+    setDate.value="";
 
     loadReminders();
 
@@ -406,6 +412,7 @@ closeReminderModal.addEventListener("click", () => {
   reminderTitle.value = "";
   reminderDescription.value = "";
   categoryInput.value = "";
+  setDate.value = "";
 
 });
 
@@ -477,12 +484,12 @@ closeReminderModal.addEventListener("click", () => {
       checkbox.type = "checkbox";
       checkbox.id = `reminder-${r.id}`;
       
-
       const label = document.createElement("label");
       label.htmlFor = checkbox.id;
       checkbox.checked = r.completed;
       label.textContent = `Mark "${r.title}" as completed`;
       label.classList.add("visually-hidden");
+      
 
       li.appendChild(checkbox);
       li.appendChild(label);
@@ -522,6 +529,7 @@ closeReminderModal.addEventListener("click", () => {
         reminderTitle.value = r.title;
         reminderDescription.value = r.description;
         categoryInput.value = r.category;
+        setDate.value = r.date;
 
         reminderModal.classList.remove("hidden");
 
@@ -535,13 +543,21 @@ closeReminderModal.addEventListener("click", () => {
       const desc = document.createElement("div");
       desc.textContent = r.description;
 
+      const date = document.createElement("div");
+
+      if (r.date) {
+        const formattedDate = new Date(r.date).toLocaleDateString();
+        date.textContent = `📅 ${formattedDate}`;
+        date.classList.add("reminder-date");
+      }
+
       const buttonContainer = document.createElement("div");
       buttonContainer.classList.add("reminder-actions");
 
       buttonContainer.appendChild(editBtn);
       buttonContainer.appendChild(deleteBtn);
 
-      text.append(title, desc)
+      text.append(title, desc, date)
 
       li.appendChild(text);
       li.appendChild(buttonContainer);

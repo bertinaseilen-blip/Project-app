@@ -89,7 +89,7 @@
 
     <textarea id="reminderDescription" placeholder="Description"></textarea>
     
-    <label for="categoryList" data-i18n="chooseCategory">Choose a category:</label>
+    <label for="categoryList" data-i18n="chooseCategory">Choose a category(optional)</label>
     <input list="category" id="categoryList" name="categoryList" />
 
     <datalist id="category">
@@ -100,6 +100,11 @@
       <option data-i18n="important"></option>
       <option data-i18n="other"></option>
     </datalist>
+
+    <label for="setDate">Choose a date (optional)</label>
+    <input type="date" id="setDate"/>
+     
+<br>
 
       <button id="saveReminderBtn" data-i18n="save">Save</button>
       <button id="closeReminderModal" data-i18n="cancel">Cancel</button>
