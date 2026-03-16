@@ -1,9 +1,10 @@
 {
   "title": "Påminnelser",
   "login": "Logg in",
-  "users": "Brukere",
+  "profile": "Profil",
   "reminders": "Mine Påminelser:",
   "loginBtn": "Logg inn",
+  "profileBtn": "Profil",
 
   "signin": "Logg inn",
   "signup": "Registrer",
@@ -41,5 +42,27 @@
   "userExists": "Brukeren finnes allerede",
   "userRequired": "Brukernavn og passord kreves",
   "errorUsers": "Feil ved lasting av brukere",
-  "userCreated": "Bruker opprettet! Du kan nå logge inn."
+  "userCreated": "Bruker opprettet! Du kan nå logge inn.",
+  "userName": "Brukernavn:",
+
+  "account": "Konto",
+  "deleteAccount": "Slett konto",
+  "confirmDeleteAccount": "Er du sikker på at du vil slette kontoen din?",
+  "accountDeleted": "Konto slettet",
+  "errorProfile": "Feil ved lasting av profil",
+
+  "usernameTooShort": "Brukernavnet må være minst 3 tegn langt",
+  "passwordTooShort": "Passordet må være minst 6 tegn langt",
+  "consentRequired": "Du må godta tjenestevilkårene",
+
+  "noAuthHeader": "Ingen autorisasjon",
+  "invalidAuthFormat": "Ugyldig autorisasjonsformat",
+  "invalidToken": "Ugyldig token",
+  
+  "noToken": "Ingen 'token' oppgitt",
+  "malformedToken": "Feilformet token",
+
+  "userNotFound": "Brukeren ble ikke funnet",
+  "notAllowed": "Ikke tillatt",
+  "serverError": "Serverfeil"
 }

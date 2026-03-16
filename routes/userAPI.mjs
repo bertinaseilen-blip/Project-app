@@ -1,7 +1,7 @@
 import express from "express";
 import { createUser, deleteUser, getUsers, loginUser } from "../dataObjects/user.mjs";
 import i18n from "../modules/i18n.mjs";
-import { verifyToken } from "../modules/security.mjs"; // you already have generateToken
+import { verifyToken } from "../modules/security.mjs"; 
 
 
 const userRouter = express.Router();
@@ -10,21 +10,27 @@ userRouter.use(express.json());
 
 // Middleware to protect routes
 export function authenticateToken(req, res, next) {
+  const t = getLanguage(req);
   const authHeader = req.headers["authorization"];
-  if (!authHeader) return res.status(401).json({ error: "No token provided" });
+  if (!authHeader) return res.status(401).json({ error: t.noToken });
 
-  const token = authHeader.split(" ")[1];
-  if (!token) return res.status(401).json({ error: "Malformed token" });
+  const parts = authHeader.split(" ");
+
+  if (parts.length !== 2) {
+    return res.status(401).json({ error: t.malformedToken });
+  }
+
+const token = parts[1];
 
   try {
-    const userId = verifyToken(token); // returns userId if valid
+    const userId = verifyToken(token); 
     req.userId = userId;
     next();
   } catch {
-    return res.status(401).json({ error: "Invalid token" });
+    return res.status(401).json({ error: t.invalidToken });
   }
 }
-/* ------------------ LANGUAGE HELPER ------------------ */
+
 function getLanguage(req) {
 
   let lang = req.headers["accept-language"];
@@ -39,9 +45,10 @@ function getLanguage(req) {
 
   return i18n.en;
 }
+//=====================================
+//USER
+//=====================================
 
-
-/* ------------------ CREATE USER ------------------ */
 userRouter.post("/", async (req, res) => {
 
   const t = getLanguage(req);
@@ -67,14 +74,16 @@ userRouter.post("/", async (req, res) => {
       return res.status(400).json({ error: t.userExists });
     }
 
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ error: t[err.message] || err.message });
 
   }
 
 });
 
+//======================================
+//LOGIN
+//=======================================
 
-/* ------------------ LOGIN USER ------------------ */
 userRouter.post("/login", async (req, res) => {
 
   const t = getLanguage(req);
@@ -104,34 +113,56 @@ userRouter.post("/login", async (req, res) => {
 
 });
 
-
-/* ------------------ DELETE USER ------------------ */
-userRouter.delete("/:id", async (req, res) => {
+userRouter.get("/me", authenticateToken, async (req, res) => {
 
   const t = getLanguage(req);
 
   try {
 
-    const success = await deleteUser(req.params.id);
+    const users = await getUsers();
+    const user = users.find(u => u.id === req.userId);
 
-    if (!success) {
-      return res.status(404).json({ error: t.userNotFound || "User not found" });
+    if (!user) {
+      return res.status(404).json({ error: t.userNotFound });
     }
 
-    res.json({
-      message: "User deleted and consent withdrawn"
-    });
+    res.json(user);
 
   } catch (err) {
 
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: t.errorProfile });
 
   }
 
 });
 
+userRouter.delete("/:id", authenticateToken, async (req, res) => {
 
-/* ------------------ GET USERS ------------------ */
+  const t = getLanguage(req);
+
+  try {
+    
+    if (req.userId !== req.params.id) {
+      return res.status(403).json({ error: t.notAllowed });
+}
+    const success = await deleteUser(req.params.id);
+
+    if (!success) {
+      return res.status(404).json({ error: t.userNotFound });
+    }
+
+    res.json({
+      message: t.accountDeleted
+    });
+
+  } catch (err) {
+
+    res.status(500).json({ error: t.serverError || err.message });
+
+  }
+
+});
+
 userRouter.get("/", async (req, res) => {
 
   const t = getLanguage(req);

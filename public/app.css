@@ -240,18 +240,18 @@ label {
   margin-bottom: 10px;
 }
 
-#usersList {
+#userName {
   list-style: none;
   padding: 0;
 }
 
-#usersList li {
+#userName li {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 }
 
-#usersList button {
+#userName button {
   background: darkred;
   color: white;
   border: none;

@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   ========================== */
 
   const openUserModalBtn = document.getElementById("openUserModal");
-  const viewUsersBtn = document.getElementById("viewUsersBtn");
+  const viewProfileBtn = document.getElementById("viewProfileBtn");
 
   const userModal = document.getElementById("userModal");
   const closeUserModalBtn = document.getElementById("closeUserModal");
@@ -84,9 +84,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const saveReminderBtn = document.getElementById("saveReminderBtn");
   const setDate = document.getElementById("setDate");
 
-  const usersModal = document.getElementById("usersModal");
-  const closeUsersModalBtn = document.getElementById("closeUsersModal");
-  const usersList = document.getElementById("usersList");
+  const profileModal = document.getElementById("profileModal");
+  const closeProfileModalBtn = document.getElementById("closeProfileModal");
+  const userName = document.getElementById("userName");
 
   let editingReminderId = null;
   /* =========================
@@ -272,59 +272,73 @@ document.addEventListener("DOMContentLoaded", async () => {
      USERS MODAL
   ========================== */
 
-if (viewUsersBtn && usersModal) {
+if (viewProfileBtn && profileModal) {
 
-  viewUsersBtn.addEventListener("click", async () => {
-    usersModal.classList.remove("hidden");
+  viewProfileBtn.addEventListener("click", async () => {
+    profileModal.classList.remove("hidden");
     loadUsers();
   });
 
 }
-if (closeUsersModalBtn) {
-  closeUsersModalBtn.addEventListener("click", () => {
-    usersModal.classList.add("hidden");
+if (closeProfileModalBtn) {
+  closeProfileModalBtn.addEventListener("click", () => {
+    profileModal.classList.add("hidden");
   });
 }
   async function loadUsers() {
 
-    usersList.innerHTML = "";
+    userName.innerHTML = "";
+
+    const token = localStorage.getItem("token");
 
     try {
 
-      const users = await getUsers();
+      const response = await fetch("/user/me", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }});
 
-      users.forEach(user => {
+      const user = await response.json();  
 
-        const li = document.createElement("li");
+      const li = document.createElement("li");
 
-        li.textContent = user.username;
+      const username = document.createElement("strong");
+      username.textContent = user.username;
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = t.deleteAccount || "Delete account";
+      deleteBtn.setAttribute("aria-label", t.deleteAccount || "Delete account");
 
-        deleteBtn.addEventListener("click", async () => {
+      deleteBtn.addEventListener("click", async () => {
 
-          if (confirm("Delete user?")) {
+      if (!confirm(t.confirmDeleteAccount || "Are you sure you want to delete your account?")) return;
 
-            await deleteUser(user.id);
+      await fetch(`/user/${user.id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
 
-            loadUsers();
+      localStorage.removeItem("token");
 
-          }
+      alert(t.accountDeleted || "Account deleted");
+
+       location.reload();
 
         });
 
+        li.appendChild(username);
         li.appendChild(deleteBtn);
 
-        usersList.appendChild(li);
+        userName.appendChild(li);
 
-      });
 
     } catch {
 
      const li = document.createElement("li");
-      li.textContent = t.errorUsers || "Error loading users";
-      usersList.appendChild(li);
+      li.textContent = t.errorUsers || "Error loading profile";
+      userName.appendChild(li);
 
     }
 

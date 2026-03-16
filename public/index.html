@@ -16,7 +16,7 @@
   <header>
     <h1 data-i18n="title">Reminder</h1>
     <button id="openUserModal" data-i18n="loginBtn">Login</button>
-    <button id="viewUsersBtn" data-i18n="users">Users</button>
+    <button id="viewProfileBtn" data-i18n="profileBtn">Profile</button>
   </header>
 
   <!-- Reminders Section -->
@@ -112,11 +112,12 @@
   </div>
 
   <!-- Users Modal -->
-  <div id="usersModal" class="modal hidden">
+  <div id="profileModal" class="modal hidden">
     <section>
-      <h2 data-i18n="users">Users</h2>
-      <ul id="usersList"></ul>
-      <button id="closeUsersModal" data-i18n="close">Close</button>
+      <h2 data-i18n="profile">Profile</h2>
+      <h4 data-i18n="userName">Username:</h4>
+      <ul id="userName"></ul>
+      <button id="closeProfileModal" data-i18n="close">Close</button>
     </section>
   </div>
 

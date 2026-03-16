@@ -1,9 +1,10 @@
 {
   "title": "Reminder",
   "login": "Login",
-  "users": "Users",
+  "profile": "Profile",
   "reminders": "My Reminders:",
   "loginBtn": "Login",
+  "profileBtn": "Profile",
 
   "signin": "Sign in",
   "signup": "Sign up",
@@ -43,5 +44,29 @@
   "userExists": "User already exists",
   "userRequired": "Username and password required",
   "errorUsers": "Error loading users",
-  "userCreated": "User created! You can now log in."
+  "userCreated": "User created! You can now log in.",
+  "userName": "Username:",
+
+  "account": "Account",
+  "deleteAccount": "Delete account",
+  "confirmDeleteAccount": "Are you sure you want to delete your account?",
+  "accountDeleted": "Account deleted",
+  "errorProfile": "Error loading profile",
+
+  "usernameTooShort": "Username must be at least 3 characters long",
+  "passwordTooShort": "Password must be at least 6 characters long",
+  "consentRequired": "You must agree to the Terms of Service",
+
+  "noAuthHeader": "No authorization header",
+  "invalidAuthFormat": "Invalid authorization format",
+  "invalidToken": "Invalid token",
+  
+  "noToken": "No token provided",
+  "malformedToken": "Malformed token",
+
+  "userNotFound": "User not found",
+  "notAllowed": "Not allowed",
+  "serverError": "Server error"
+
+
 }
