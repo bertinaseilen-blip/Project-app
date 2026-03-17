@@ -276,3 +276,16 @@ label {
   font-size: 16px;
   cursor: pointer;
 }
+#completed-header {
+  border-top: 1px solid #747474;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.completed-reminder strong {
+  text-decoration: line-through;
+}
+
+.completed-reminder .reminder-date,
+.completed-reminder div {
+  color: #666;
+}

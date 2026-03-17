@@ -451,6 +451,93 @@ closeReminderModal.addEventListener("click", () => {
 
 });
 
+/* =========================
+   RENDER A SINGLE REMINDER
+========================== */
+
+function renderReminder(r, completed = false) {
+  const li = document.createElement("li");
+  if (completed) li.classList.add("completed-reminder");
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.id = `reminder-${r.id}`;
+  checkbox.checked = completed;
+  checkbox.disabled = completed;
+
+  const label = document.createElement("label");
+  label.htmlFor = checkbox.id;
+  label.textContent = `Mark "${r.title}" as completed`;
+  label.classList.add("visually-hidden");
+
+  const text = document.createElement("span");
+
+  const title = document.createElement("strong");
+  title.textContent = r.title;
+
+  const desc = document.createElement("div");
+  desc.textContent = r.description;
+
+  const date = document.createElement("div");
+  if (r.date) {
+    const formattedDate = new Date(r.date).toLocaleDateString();
+    date.textContent = `📅 ${formattedDate}`;
+    date.classList.add("reminder-date");
+  }
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("reminder-actions");
+
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "✏";
+  editBtn.classList.add("edit-btn");
+  editBtn.setAttribute("aria-label", `Edit reminder ${r.title}`);
+  editBtn.disabled = completed;
+  editBtn.type = "button";
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "x";
+  deleteBtn.classList.add("delete-btn");
+  deleteBtn.setAttribute("aria-label", `Delete reminder ${r.title}`);
+  deleteBtn.type = "button";
+
+  buttonContainer.append(editBtn, deleteBtn);
+
+  text.append(title, desc, date);
+
+  li.append(checkbox, label, text, buttonContainer);
+
+  if (!completed) {
+    checkbox.addEventListener("change", async () => {
+      const token = localStorage.getItem("token");
+      await fetch(`/api/reminders/${r.id}/complete`, {
+        method: "PUT",
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      loadReminders();
+    });
+  }
+  editBtn.addEventListener("click", () => {
+    editingReminderId = r.id;
+    reminderTitle.value = r.title;
+    reminderDescription.value = r.description;
+    categoryInput.value = r.category;
+    setDate.value = r.date;
+    reminderModal.classList.remove("hidden");
+  });
+
+  deleteBtn.addEventListener("click", async () => {
+    if (!confirm("Delete reminder?")) return;
+    const token = localStorage.getItem("token");
+    await fetch(`/api/reminders/${r.id}`, {
+      method: "DELETE",
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    loadReminders();
+  });
+
+  return li;
+}
+
   /* =========================
      LOAD REMINDERS
   ========================== */
@@ -472,8 +559,13 @@ closeReminderModal.addEventListener("click", () => {
     }
 
     const reminders = await response.json();
+
+    const activeReminders = reminders.filter(r => !r.completed);
+    const completedReminders = reminders.filter(r => r.completed);
     
-    const grouped = reminders.reduce((acc, r) => {
+    reminderList.innerHTML = "";
+
+    const grouped = activeReminders.reduce((acc, r) => {
     const category = r.category || "Other";
 
       if (!acc[category]) {
@@ -484,7 +576,6 @@ closeReminderModal.addEventListener("click", () => {
 
       return acc;
     }, {});
-    reminderList.innerHTML = "";
 
      Object.keys(grouped).sort().forEach(category => {
 
@@ -494,114 +585,31 @@ closeReminderModal.addEventListener("click", () => {
       const header = document.createElement("h3");
       header.textContent = category;
 
-      header.textContent = category;
-
       headerLi.appendChild(header);
       reminderList.appendChild(headerLi);
       
       grouped[category].forEach(r => {
-
-      const li = document.createElement("li");
-
-      const editBtn = document.createElement("button");
-      editBtn.textContent = "✏";
-      editBtn.classList.add("edit-btn");
-      editBtn.setAttribute("aria-label", `Edit reminder ${r.title}`);
-      editBtn.type = "button";
-
-      const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "x";
-      deleteBtn.classList.add("delete-btn");
-      deleteBtn.setAttribute("aria-label", `Delete reminder ${r.title}`);
-      deleteBtn.type = "button";
-
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = `reminder-${r.id}`;
-      
-      const label = document.createElement("label");
-      label.htmlFor = checkbox.id;
-      checkbox.checked = r.completed;
-      label.textContent = `Mark "${r.title}" as completed`;
-      label.classList.add("visually-hidden");
-      
-
-      li.appendChild(checkbox);
-      li.appendChild(label);
-      checkbox.addEventListener("change", async () => {
-
-        await fetch(`/api/reminders/${r.id}/complete`, {
-          method: "PUT",
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
-
-        });  
-
-        loadReminders();
-
-      });
-      
-      deleteBtn.addEventListener("click", async () => {
-
-        if (!confirm("Delete reminder?")) return;
-
-        await fetch(`/api/reminders/${r.id}`, {
-          method: "DELETE",
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
-        });
-
-        loadReminders();
-
-      });
-
-      editBtn.addEventListener("click", () => {
-
-        editingReminderId = r.id;
-
-        reminderTitle.value = r.title;
-        reminderDescription.value = r.description;
-        categoryInput.value = r.category;
-        setDate.value = r.date;
-
-        reminderModal.classList.remove("hidden");
-
-      });
-
-      const text = document.createElement("span");
-
-      const title = document.createElement("strong")
-      title.textContent = r.title;
-
-      const desc = document.createElement("div");
-      desc.textContent = r.description;
-
-      const date = document.createElement("div");
-
-      if (r.date) {
-        const formattedDate = new Date(r.date).toLocaleDateString();
-        date.textContent = `📅 ${formattedDate}`;
-        date.classList.add("reminder-date");
-      }
-
-      const buttonContainer = document.createElement("div");
-      buttonContainer.classList.add("reminder-actions");
-
-      buttonContainer.appendChild(editBtn);
-      buttonContainer.appendChild(deleteBtn);
-
-      text.append(title, desc, date)
-
-      li.appendChild(text);
-      li.appendChild(buttonContainer);
-
-      reminderList.appendChild(li);
-
+        reminderList.appendChild(renderReminder(r, false));
     });
+      
+     
+    
 
   });
+  if (completedReminders.length > 0) {
+      const headerLi = document.createElement("li");
+      headerLi.classList.add("category-header");
+      const header = document.createElement("h3");
+      header.textContent = "Completed";
+      header.id = "completed-header";
+      headerLi.appendChild(header);
+      reminderList.appendChild(headerLi);
+
+      completedReminders.forEach(r => {
+        reminderList.appendChild(renderReminder(r, true));
+      });
+    }
+
   }
 
   /* =========================
