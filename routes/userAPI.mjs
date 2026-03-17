@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, deleteUser, getUsers, loginUser } from "../dataObjects/user.mjs";
+import { createUser, deleteUser, getUsers, loginUser, getUserById  } from "../dataObjects/user.mjs";
 import i18n from "../modules/i18n.mjs";
 import { verifyToken } from "../modules/security.mjs"; 
 
@@ -119,8 +119,7 @@ userRouter.get("/me", authenticateToken, async (req, res) => {
 
   try {
 
-    const users = await getUsers();
-    const user = users.find(u => u.id === req.userId);
+  const user = await getUserById(req.userId);
 
     if (!user) {
       return res.status(404).json({ error: t.userNotFound });

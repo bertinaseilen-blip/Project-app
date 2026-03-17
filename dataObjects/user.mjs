@@ -34,6 +34,10 @@ export async function getUsers() {
   return await storage.getUsers();
 }
 
+export async function getUserById(id) {
+  return await storage.getUserById(id);
+}
+
 export async function deleteUser(id) {
   return await storage.deleteUser(id);
 }

@@ -83,6 +83,16 @@ export async function getUserByUsername(username) {
   );
   return result.rows[0];
 }
+export async function getUserById(id) {
+
+  const result = await pool.query(
+    "SELECT id, username FROM users WHERE id = $1",
+    [id]
+  );
+
+  return result.rows[0];
+
+}
 
 export async function getUsers() {
   const result = await pool.query(`SELECT id, username FROM users ORDER BY username`);
