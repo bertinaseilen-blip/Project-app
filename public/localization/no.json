@@ -33,7 +33,7 @@
   "important": "Viktig!",
   "other": "Annet",
 
-  "logout": "Logget ut",
+  "logout": "Du er nå logget ut",
   "loginRequired": "Vennligst logg inn først",
   "invalidCredentials": "Feil brukernavn eller passord",
   "loginSuccess": "Innlogging vellykket!",
@@ -64,5 +64,9 @@
 
   "userNotFound": "Brukeren ble ikke funnet",
   "notAllowed": "Ikke tillatt",
-  "serverError": "Serverfeil"
+  "serverError": "Serverfeil",
+
+  "profileLoginRequired": "Logg inn for å se profil",
+
+  "confirmLogout": "Er du sikker på at du vil logge ut?"
 }

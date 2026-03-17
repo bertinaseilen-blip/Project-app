@@ -131,6 +131,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (token) {
 
+      if (!confirm(t.confirmLogout || "Are you sure you want to log out?")) {
+        return;
+      }
+
       localStorage.removeItem("token");
 
       alert(t.logout);
@@ -269,7 +273,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
   /* =========================
-     USERS MODAL
+     Profile MODAL
   ========================== */
 
 if (viewProfileBtn && profileModal) {
@@ -291,6 +295,16 @@ if (closeProfileModalBtn) {
 
     const token = localStorage.getItem("token");
 
+      if (!token) {
+
+    const li = document.createElement("li");
+    li.textContent = t.profileLoginRequired || "Login to see profile";
+
+    userName.appendChild(li);
+
+    return;
+  }
+
     try {
 
       const response = await fetch("/user/me", {
@@ -302,8 +316,15 @@ if (closeProfileModalBtn) {
 
       const li = document.createElement("li");
 
-      const username = document.createElement("strong");
-      username.textContent = user.username;
+      const username = document.createElement("p");
+      const label = document.createElement("strong");
+      label.textContent = t.userName || "Username:";
+      const name = document.createElement("span");
+      name.textContent = ` ${user.username}`;
+
+
+      username.appendChild(label);
+      username.appendChild(name);
 
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = t.deleteAccount || "Delete account";
