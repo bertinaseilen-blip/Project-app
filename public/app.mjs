@@ -410,19 +410,30 @@ if (closeProfileModalBtn) {
 
     const method = editingReminderId ? "PUT" : "POST";
 
-    await fetch(url, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        title,
-        description,
-        category,
-        date
-      })
-    });
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          category,
+          date
+        })
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        alert(data.error || "Something went wrong");
+        return;
+      }
+
+    } catch (error) {
+      alert("You are offline. Reminder not saved.");
+    }
 
     
 

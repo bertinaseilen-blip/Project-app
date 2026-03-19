@@ -44,11 +44,15 @@ self.addEventListener("fetch", (event) => {
 
   if (request.url.includes("/api/")) {
     event.respondWith(
-      fetch(request)
-        .then(response => {
-          return response;
-        })
-        .catch(() => caches.match(request))
+      fetch(request).catch(() => {
+        return new Response(
+          JSON.stringify({ error: "You are offline" }),
+          {
+            status: 503,
+            headers: { "Content-Type": "application/json" }
+          }
+        );
+      })
     );
     return;
   }
