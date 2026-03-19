@@ -620,11 +620,18 @@ function renderReminder(r, completed = false) {
     loadReminders();
   }
   
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/service-worker.js")
-    .then(() => console.log("Service Worker registered"))
-    .catch((error) => console.log("Service Worker error:", error));
-}
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+          console.log("Service Worker registered:", registration);})
+
+      .catch((error) => {
+          console.log("Service Worker error:", error);
+        });
+
+    });
+  }
 
 });
