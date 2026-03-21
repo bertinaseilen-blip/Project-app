@@ -41,3 +41,32 @@ export async function getUserById(id) {
 export async function deleteUser(id) {
   return await storage.deleteUser(id);
 }
+
+export async function getUserWithPasswordById(id) {
+  const result = await pool.query(
+    "SELECT * FROM users WHERE id = $1",
+    [id]
+  );
+  return result.rows[0];
+}
+
+export async function changePassword(userId, oldPassword, newPassword) {
+
+  if (!newPassword || newPassword.length < 6) {
+    throw new Error("passwordTooShort");
+  }
+
+  const user = await storage.getUserWithPasswordById(userId);
+
+  if (!user) throw new Error("userNotFound");
+
+  const oldHashed = hashPassword(oldPassword);
+
+  if (oldHashed !== user.password) {
+    throw new Error("invalidCredentials");
+  }
+
+  const newHashed = hashPassword(newPassword);
+
+  return await storage.updateUserPassword(userId, newHashed);
+}

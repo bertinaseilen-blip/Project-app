@@ -99,6 +99,23 @@ export async function getUsers() {
   return result.rows;
 }
 
+export async function getUserWithPasswordById(id) {
+  const result = await pool.query(
+    "SELECT * FROM users WHERE id = $1",
+    [id]
+  );
+  return result.rows[0];
+}
+
+export async function updateUserPassword(userId, newPassword) {
+  const result = await pool.query(
+    `UPDATE users SET password = $1 WHERE id = $2 RETURNING id, username`,
+    [newPassword, userId]
+  );
+
+  return result.rows[0];
+}
+
 export async function deleteUser(id) {
   const result = await pool.query(
     `DELETE FROM users WHERE id = $1 RETURNING *`,

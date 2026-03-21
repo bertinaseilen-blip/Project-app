@@ -2,6 +2,7 @@ import express from "express";
 import { createUser, deleteUser, getUsers, loginUser, getUserById  } from "../dataObjects/user.mjs";
 import i18n from "../modules/i18n.mjs";
 import { verifyToken } from "../modules/security.mjs"; 
+import { changePassword } from "../dataObjects/user.mjs";
 
 
 const userRouter = express.Router();
@@ -157,6 +158,32 @@ userRouter.delete("/:id", authenticateToken, async (req, res) => {
   } catch (err) {
 
     res.status(500).json({ error: t.serverError || err.message });
+
+  }
+
+});
+
+userRouter.put("/password", authenticateToken, async (req, res) => {
+
+  const t = getLanguage(req);
+
+  try {
+
+    const { oldPassword, newPassword } = req.body;
+
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ error: t.userRequired });
+    }
+
+    await changePassword(req.userId, oldPassword, newPassword);
+
+    res.json({ message: "Password updated" });
+
+  } catch (err) {
+
+    res.status(400).json({
+      error: t[err.message] || err.message
+    });
 
   }
 

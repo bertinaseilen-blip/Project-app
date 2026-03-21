@@ -240,6 +240,8 @@ label {
   margin-bottom: 10px;
 }
 
+/* profile modal*/
+
 #userName {
   list-style: none;
   padding: 0;
@@ -247,21 +249,46 @@ label {
 
 #userName li {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
+  flex-direction: column;
+  align-self: flex-start;
 }
-
 #userName p {
-  margin: 0;
+  font-size: 18px;
 }
 
+/* delete button*/
 #userName button {
-  background: darkred;
+  align-self:center;
+  background: rgb(231, 80, 80);
   color: white;
   border: none;
   padding: 5px 10px;
+  margin-bottom: 10px;
 }
+
+details {
+  width: 100%;
+  cursor: pointer;
+  border: 1px solid #4240d1;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 0;
+}
+
+summary {
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: -0.5em -0.5em 0;
+  padding: 0.5em;
+}
+/* Password container */
+details div {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+
 #saveReminderBtn{
   background-color: #6fd188;
   border: none;

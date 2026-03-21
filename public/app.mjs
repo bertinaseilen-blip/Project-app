@@ -349,8 +349,76 @@ if (closeProfileModalBtn) {
 
         });
 
+
+      const details = document.createElement("details");
+
+      const summary = document.createElement("summary");
+      summary.textContent = "Change password";
+
+      const passwordContainer = document.createElement("div");
+
+      const oldPasswordInput = document.createElement("input");
+      oldPasswordInput.type = "password";
+      oldPasswordInput.placeholder = "Current password";
+
+      const newPasswordInput = document.createElement("input");
+      newPasswordInput.type = "password";
+      newPasswordInput.placeholder = "New password";
+
+      const changePasswordBtn = document.createElement("button");
+      changePasswordBtn.textContent = "Update";
+
+      changePasswordBtn.addEventListener("click", async () => {
+
+        const oldPassword = oldPasswordInput.value;
+        const newPassword = newPasswordInput.value;
+
+        if (!oldPassword || !newPassword) {
+          alert("Please fill both fields");
+          return;
+        }
+
+        try {
+
+          const response = await fetch("/user/password", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              oldPassword,
+              newPassword
+            })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || "Failed to update password");
+          }
+
+          alert("Password updated successfully");
+
+          oldPasswordInput.value = "";
+          newPasswordInput.value = "";
+
+        } catch (err) {
+          alert(err.message);
+        }
+
+      });
+
+        passwordContainer.appendChild(oldPasswordInput);
+        passwordContainer.appendChild(newPasswordInput);
+        passwordContainer.appendChild(changePasswordBtn);
+
+        details.appendChild(summary);
+        details.appendChild(passwordContainer);
+
         li.appendChild(username);
         li.appendChild(deleteBtn);
+        li.appendChild(details);
 
         userName.appendChild(li);
 
