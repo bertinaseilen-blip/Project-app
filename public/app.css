@@ -242,22 +242,22 @@ label {
 
 /* profile modal*/
 
-#userName {
+#profileList {
   list-style: none;
   padding: 0;
 }
 
-#userName li {
+#profileList li {
   display: flex;
   flex-direction: column;
   align-self: flex-start;
 }
-#userName p {
+#profileList p {
   font-size: 18px;
 }
 
 /* delete button*/
-#userName button {
+#profileList button {
   align-self:center;
   background: rgb(231, 80, 80);
   color: white;

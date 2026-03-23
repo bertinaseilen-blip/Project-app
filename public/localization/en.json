@@ -70,7 +70,15 @@
 
   "profileLoginRequired": "Login to see profile",
 
-  "confirmLogout": "Are you sure you want to log out?"
+  "confirmLogout": "Are you sure you want to log out?",
+
+  "changePassword": "Change password",
+  "currentPassword": "Current password",
+  "newPassword": "New password",
+  "update": "Update",
+  "fillBothFields": "Please fill both fields",
+  "passwordUpdated": "Password updated successfully",
+  "passwordUpdateFailed": "Failed to update password"
 
 
 }

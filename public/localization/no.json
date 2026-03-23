@@ -2,13 +2,13 @@
   "title": "Påminnelser",
   "login": "Logg in",
   "profile": "Profil",
-  "reminders": "Mine Påminelser:",
+  "reminders": "Mine påminnelser:",
   "loginBtn": "Logg inn",
   "profileBtn": "Profil",
 
   "signin": "Logg inn",
-  "signup": "Registrer",
-  "createUser": "Lag bruker",
+  "signup": "Registrer deg",
+  "createUser": "Opprett bruker",
   "createAccount": "Opprett konto",
 
   "noAccount": "Har du ikke en konto?",
@@ -20,7 +20,7 @@
   "tos": "Bruksvilkår",
   "privacy": "Personvernerklæring",
 
-  "createReminder": "Lag Påminelse",
+  "createReminder": "Lag påminnelse",
   
   "save": "Lagre",
   "cancel": "Avbryt",
@@ -28,9 +28,9 @@
 
   "work": "Jobb",
   "school":"Skole",
-  "assignment":"Innevering",
-  "toDo": "To Do",
-  "important": "Viktig!",
+  "assignment":"Innlevering",
+  "toDo": "Gjøremål",
+  "important": "Viktig",
   "other": "Annet",
 
   "logout": "Du er nå logget ut",
@@ -55,7 +55,7 @@
   "passwordTooShort": "Passordet må være minst 6 tegn langt",
   "consentRequired": "Du må godta tjenestevilkårene",
 
-  "noAuthHeader": "Ingen autorisasjon",
+  "noAuthHeader": "Mangler autorisasjon",
   "invalidAuthFormat": "Ugyldig autorisasjonsformat",
   "invalidToken": "Ugyldig token",
   
@@ -68,5 +68,14 @@
 
   "profileLoginRequired": "Logg inn for å se profil",
 
-  "confirmLogout": "Er du sikker på at du vil logge ut?"
+  "confirmLogout": "Er du sikker på at du vil logge ut?",
+
+  "changePassword": "Endre passord",
+  "currentPassword": "Nåværende passord",
+  "newPassword": "Nytt passord",
+  "update": "Oppdater",
+  "fillBothFields": "Vennligst fyll inn begge feltene",
+  "passwordUpdated": "Passordet ble oppdatert",
+  "passwordUpdateFailed": "Kunne ikke oppdatere passordet"
+
 }

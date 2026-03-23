@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const profileModal = document.getElementById("profileModal");
   const closeProfileModalBtn = document.getElementById("closeProfileModal");
-  const userName = document.getElementById("userName");
+  const profileList = document.getElementById("profileList");
 
   let editingReminderId = null;
   /* =========================
@@ -291,7 +291,7 @@ if (closeProfileModalBtn) {
 }
   async function loadUsers() {
 
-    userName.innerHTML = "";
+    profileList.innerHTML = "";
 
     const token = localStorage.getItem("token");
 
@@ -300,7 +300,7 @@ if (closeProfileModalBtn) {
     const li = document.createElement("li");
     li.textContent = t.profileLoginRequired || "Login to see profile";
 
-    userName.appendChild(li);
+    profileList.appendChild(li);
 
     return;
   }
@@ -353,20 +353,20 @@ if (closeProfileModalBtn) {
       const details = document.createElement("details");
 
       const summary = document.createElement("summary");
-      summary.textContent = "Change password";
+      summary.textContent = t.changePassword || "Change password";
 
       const passwordContainer = document.createElement("div");
 
       const oldPasswordInput = document.createElement("input");
       oldPasswordInput.type = "password";
-      oldPasswordInput.placeholder = "Current password";
+      oldPasswordInput.placeholder = t.currentPassword || "Current password";
 
       const newPasswordInput = document.createElement("input");
       newPasswordInput.type = "password";
-      newPasswordInput.placeholder = "New password";
+      newPasswordInput.placeholder = t.newPassword || "New password";
 
       const changePasswordBtn = document.createElement("button");
-      changePasswordBtn.textContent = "Update";
+      changePasswordBtn.textContent = t.update || "Update";
 
       changePasswordBtn.addEventListener("click", async () => {
 
@@ -374,7 +374,7 @@ if (closeProfileModalBtn) {
         const newPassword = newPasswordInput.value;
 
         if (!oldPassword || !newPassword) {
-          alert("Please fill both fields");
+          alert(t.fillBothFields || "Please fill both fields");
           return;
         }
 
@@ -395,10 +395,10 @@ if (closeProfileModalBtn) {
           const data = await response.json();
 
           if (!response.ok) {
-            throw new Error(data.error || "Failed to update password");
+            throw new Error(data.error || t.passwordUpdateFailed || "Failed to update password");
           }
 
-          alert("Password updated successfully");
+          alert(t.passwordUpdated || "Password updated successfully");
 
           oldPasswordInput.value = "";
           newPasswordInput.value = "";
@@ -420,14 +420,14 @@ if (closeProfileModalBtn) {
         li.appendChild(deleteBtn);
         li.appendChild(details);
 
-        userName.appendChild(li);
+        profileList.appendChild(li);
 
 
     } catch {
 
      const li = document.createElement("li");
-      li.textContent = t.errorUsers || "Error loading profile";
-      userName.appendChild(li);
+      li.textContent = t.errorProfile || "Error loading profile";
+      profileList.appendChild(li);
 
     }
 
