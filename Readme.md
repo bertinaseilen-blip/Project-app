@@ -1,7 +1,9 @@
 # Reminder app
 Web service URL: https://reminder-app-demo.onrender.com/
 
-- It is possibe now to create a user, login and create a reminder. You have to be logged in to create a reminder and to see them. 
+- You can create an account, update your password, and delete your account at any time.
+After logging in, you can create, edit, and delete reminders with a title, description, date, and category.
+Reminders are automatically organized by category, and completed reminders are moved to a dedicated completed section.
 - i18n: added translation for engish and norwegian. the buttons and errors/alerts changes to the correct language based on the browsers language. 
 
 
