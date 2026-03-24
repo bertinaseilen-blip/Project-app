@@ -39,7 +39,7 @@ reminderRouter.get("/", authenticate, async (req, res) => {
   }
 });
 
-// CREATE REMINDER
+
 reminderRouter.post("/", authenticate, async (req, res) => {
   try {
     const { title, description, category, date } = req.body;
@@ -48,13 +48,15 @@ reminderRouter.post("/", authenticate, async (req, res) => {
       return res.status(400).json({ error: "Title required" });
     }
 
+    const safeDate = date && date.trim() !== "" ? date : null;
+
     const reminder = await createReminder(
       randomUUID(),
       req.userId,
       title,
       description || "",
       category || "",
-      date
+      safeDate,
     );
 
     res.status(201).json(reminder);
@@ -64,7 +66,7 @@ reminderRouter.post("/", authenticate, async (req, res) => {
   }
 });
 
-// COMPLETE REMINDER
+
 reminderRouter.put("/:id/complete", authenticate, async (req, res) => {
   try {
     await completeReminder(req.params.id, req.userId);

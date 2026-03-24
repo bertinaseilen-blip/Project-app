@@ -8,9 +8,6 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 
-// -------------------------
-// RETRY HELPER
-// -------------------------
 async function retry(fn, retries = 5, delay = 2000) {
   for (let i = 0; i < retries; i++) {
     try {
@@ -28,7 +25,7 @@ async function retry(fn, retries = 5, delay = 2000) {
 // -------------------------
 export async function initDB() {
   await retry(async () => {
-    // Users table
+
     await pool.query(`
       CREATE TABLE IF NOT EXISTS users (
         id TEXT PRIMARY KEY,
@@ -38,7 +35,7 @@ export async function initDB() {
       );
     `);
 
-    // Reminders table
+ 
     await pool.query(`
       CREATE TABLE IF NOT EXISTS reminders (
         id TEXT PRIMARY KEY,
@@ -172,7 +169,5 @@ export async function updateReminder(id, userId, title, description, category, d
 
   return result.rows[0];
 }
-// -------------------------
-// EXPORT POOL
-// -------------------------
+
 export { pool };

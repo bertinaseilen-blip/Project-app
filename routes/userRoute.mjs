@@ -1,15 +1,13 @@
 import express from "express";
-import { createUser, deleteUser, getUsers, loginUser, getUserById  } from "../dataObjects/user.mjs";
+import { createUser, deleteUser, getUsers, loginUser, getUserById, changePassword  } from "../dataObjects/user.mjs";
 import i18n from "../modules/i18n.mjs";
 import { verifyToken } from "../modules/security.mjs"; 
-import { changePassword } from "../dataObjects/user.mjs";
 
 
 const userRouter = express.Router();
 userRouter.use(express.json());
 
 
-// Middleware to protect routes
 export function authenticateToken(req, res, next) {
   const t = getLanguage(req);
   const authHeader = req.headers["authorization"];

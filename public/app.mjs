@@ -89,9 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const profileList = document.getElementById("profileList");
 
   let editingReminderId = null;
-  /* =========================
-     LOGIN BUTTON STATE
-  ========================== */
+
 
   const token = localStorage.getItem("token");
 
@@ -273,7 +271,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
   /* =========================
-     Profile MODAL
+     PROFILE MODAL
   ========================== */
 
 if (viewProfileBtn && profileModal) {
@@ -470,7 +468,7 @@ if (closeProfileModalBtn) {
     const title = reminderTitle.value;
     const description = reminderDescription.value;
     const category = categoryInput.value;
-    const date = setDate.value;
+    const date = setDate.value || null;
 
     const url = editingReminderId
       ? `/api/reminders/${editingReminderId}`
@@ -691,9 +689,6 @@ function renderReminder(r, completed = false) {
 
   }
 
-  /* =========================
-     LOAD ON START
-  ========================== */
 
   if (localStorage.getItem("token")) {
     loadReminders();

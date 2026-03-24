@@ -34,4 +34,8 @@ async function runRequest(method, url, data, contentType) {
     return await response.text();
 }
 
-export { get, post, del };
+async function put(url, data, contentType = HTTP.contentTypes.application.json) {
+    return await runRequest(HTTP.methods.PUT, url, data, contentType);
+}
+
+export { get, post, put, del };

@@ -240,8 +240,6 @@ label {
   margin-bottom: 10px;
 }
 
-/* profile modal*/
-
 #profileList {
   list-style: none;
   padding: 0;
@@ -256,7 +254,6 @@ label {
   font-size: 18px;
 }
 
-/* delete button*/
 #profileList button {
   align-self:center;
   background: rgb(231, 80, 80);
